@@ -17,12 +17,14 @@
             />
           </div>
           <h1 class="text-center">Register Here!</h1>
-          <form>
+          {{ loginData | json }}
+          <form (ngSubmit)="formSubmit()">
             <!-- username field  -->
             <mat-form-field appearance="outline" class="col-12">
               <mat-label>Username</mat-label>
               <input
                 required
+                [(ngModel)]="loginData.username"
                 name="username"
                 matInput
                 placeholder="Enter here"
@@ -35,6 +37,7 @@
               <input
                 required
                 name="password"
+                [(ngModel)]="loginData.password"
                 matInput
                 type="password"
                 placeholder="Enter here"

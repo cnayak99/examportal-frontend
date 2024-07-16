@@ -10,6 +10,9 @@ export class LoginService {
 
   //generate token
 
+  public getCurrentUser() {
+    return this.http.get(`${baseUrl}/current-user`);
+  }
   public generateToken(loginData: any) {
     return this.http.post(`${baseUrl}/generate-token`, loginData);
   }
@@ -33,8 +36,11 @@ export class LoginService {
   }
 
   public getToken() {
-    return localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    console.log('Retrieved token:', token);
+    return token;
   }
+
   public setUser(user: any) {
     localStorage.setItem('user', JSON.stringify(user));
   }

@@ -7,7 +7,6 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from '../../services/login.service';
-import { error } from 'console';
 
 @Component({
   selector: 'app-login',
@@ -21,15 +20,18 @@ import { error } from 'console';
     CommonModule,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   loginData = {
     username: '',
     password: '',
   };
+
   constructor(private snack: MatSnackBar, private login: LoginService) {}
+
   ngOnInit(): void {}
+
   formSubmit() {
     console.log('login button click');
     if (
@@ -51,15 +53,25 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    //request to server to generate token
-
     this.login.generateToken(this.loginData).subscribe(
       (data: any) => {
         console.log('success');
         console.log(data);
+
+        this.login.loginUser(data.token);
+        this.login.getCurrentUser().subscribe(
+          (user: any) => {
+            this.login.setUser(user);
+            console.log(user);
+          },
+          (error) => {
+            console.log('Error nest!');
+            console.log(error);
+          }
+        );
       },
       (error) => {
-        console.log('Error!');
+        console.log('Error not nest!');
         console.log(error);
       }
     );

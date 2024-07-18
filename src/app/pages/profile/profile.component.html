@@ -1,1 +1,49 @@
-<p>profile works!</p>
+<mat-card *ngIf="user">
+  <h1>Welcome to profile page</h1>
+  <!-- {{ user | json }} -->
+  <mat-card-content>
+    <div class="container">
+      <div class="container text-center">
+        <img
+          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          alt="profile-image"
+          class="profile-image"
+        />
+        <h1 class="mt-20">{{ user?.firstName }} {{ user?.lastName }}</h1>
+      </div>
+      <div class="row">
+        <div class="col-md-10 offset-md-1">
+          <table class="table text-center">
+            <tr>
+              <td>Username</td>
+              <td>{{ user?.username }}</td>
+            </tr>
+            <tr>
+              <td>Userid</td>
+              <td>{{ user?.id }}</td>
+            </tr>
+            <tr>
+              <td>Phone</td>
+              <td>{{ user?.phone }}</td>
+            </tr>
+            <tr>
+              <td>Role</td>
+              <td>{{ user?.authorities?.[0]?.authority }}</td>
+            </tr>
+            <tr>
+              <td>Status</td>
+              <td>{{ user?.enabled ? "Active" : "Not Active" }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions
+    class="text-center"
+    style="display: flex; justify-content: center; align-items: center"
+  >
+    <button mat-raised-button color="primary" class="ms-4">Update</button>
+    <button mat-raised-button color="primary" class="ms-2">SHARE</button>
+  </mat-card-actions>
+</mat-card>

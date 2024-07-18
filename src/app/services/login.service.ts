@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import baseUrl from './helper';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -62,7 +63,3 @@ export class LoginService {
 }
 
 // src/app/models/user.model.ts
-export type User = {
-  username: string;
-  [key: string]: any; // Allow other properties
-};

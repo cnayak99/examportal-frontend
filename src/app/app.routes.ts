@@ -7,6 +7,7 @@ import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboa
 import { adminGuard } from './services/admin.guard';
 import { normalGuard } from './services/normal.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { WelcomeComponent } from './pages/admin/welcome/welcome.component';
 
 export const routes: Routes = [
   {
@@ -29,6 +30,10 @@ export const routes: Routes = [
     component: DashboardComponent,
     canActivate: [adminGuard],
     children: [
+      {
+        path: '',
+        component: WelcomeComponent,
+      },
       {
         path: 'profile',
         component: ProfileComponent,

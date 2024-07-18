@@ -4,7 +4,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LoginService, User } from '../../services/login.service';
+import { LoginService } from '../../services/login.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-navbar',

@@ -13,7 +13,7 @@ import { SignupComponent } from './pages/signup/signup.component'; // Import the
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginService } from './services/login.service';
+import { CommonModule } from '@angular/common'; // Import CommonModule
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +28,7 @@ import { LoginService } from './services/login.service';
     MatInputModule,
     MatFormFieldModule,
     NavbarComponent,
+    CommonModule,
     HttpClientModule,
     SignupComponent,
     MatSnackBarModule,

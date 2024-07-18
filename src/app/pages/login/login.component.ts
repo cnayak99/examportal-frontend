@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router'; // Correct import
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,11 @@ export class LoginComponent implements OnInit {
     password: '',
   };
 
-  constructor(private snack: MatSnackBar, private login: LoginService) {}
+  constructor(
+    private snack: MatSnackBar,
+    private login: LoginService,
+    private router: Router // Inject Router from '@angular/router'
+  ) {}
 
   ngOnInit(): void {}
 
@@ -63,6 +68,16 @@ export class LoginComponent implements OnInit {
           (user: any) => {
             this.login.setUser(user);
             console.log(user);
+
+            if (this.login.getUserRole() == 'ADMIN') {
+              this.router.navigate(['admin']);
+              this.login.loginStatusSubject.next(true);
+            } else if (this.login.getUserRole() == 'NORMAL') {
+              this.router.navigate(['user-dashboard']);
+              this.login.loginStatusSubject.next(true);
+            } else {
+              this.login.logout();
+            }
           },
           (error) => {
             console.log('Error nest!');
@@ -73,6 +88,9 @@ export class LoginComponent implements OnInit {
       (error) => {
         console.log('Error not nest!');
         console.log(error);
+        this.snack.open('Invalid Details...Try again', '', {
+          duration: 3000,
+        });
       }
     );
   }

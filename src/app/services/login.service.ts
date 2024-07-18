@@ -1,18 +1,20 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 import baseUrl from './helper';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
+  public loginStatusSubject = new Subject<boolean>();
+
   constructor(private http: HttpClient) {}
 
-  //generate token
-
   public getCurrentUser() {
-    return this.http.get(`${baseUrl}/current-user`);
+    return this.http.get<User>(`${baseUrl}/current-user`);
   }
+
   public generateToken(loginData: any) {
     return this.http.post(`${baseUrl}/generate-token`, loginData);
   }
@@ -22,41 +24,45 @@ export class LoginService {
     return true;
   }
 
-  public isLoggedIn() {
-    let tokenStr = localStorage.getItem('token');
-    if (tokenStr == undefined || tokenStr == '' || tokenStr == null) {
-      return false;
-    } else return true;
+  public isLoggedIn(): boolean {
+    const tokenStr = localStorage.getItem('token');
+    return tokenStr !== undefined && tokenStr !== '' && tokenStr !== null;
   }
 
-  public logout() {
+  public logout(): boolean {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     return true;
   }
 
-  public getToken() {
+  public getToken(): string | null {
     const token = localStorage.getItem('token');
     console.log('Retrieved token:', token);
     return token;
   }
 
-  public setUser(user: any) {
+  public setUser(user: any): void {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  public getUser() {
-    let userStr = localStorage.getItem('user');
+  public getUser(): User | null {
+    const userStr = localStorage.getItem('user');
     if (userStr != null) {
-      return JSON.parse(userStr);
+      return JSON.parse(userStr) as User;
     } else {
       this.logout();
       return null;
     }
   }
 
-  public getUserRole() {
-    let user = this.getUser();
-    return user.authorities[0].authority;
+  public getUserRole(): string | null {
+    const user = this.getUser();
+    return user ? user['authorities'][0].authority : null;
   }
 }
+
+// src/app/models/user.model.ts
+export type User = {
+  username: string;
+  [key: string]: any; // Allow other properties
+};

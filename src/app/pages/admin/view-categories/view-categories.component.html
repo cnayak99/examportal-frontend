@@ -1,0 +1,17 @@
+<mat-card>
+  <h1>All Categories</h1>
+  <mat-list>
+    @for (category of categories; track category) {
+    <mat-list-item>
+      <mat-icon matListItemIcon>category</mat-icon>
+      <div matListItemTitle>{{ category.title }}</div>
+      <div matListItemLine>{{ category.description }}</div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    }
+  </mat-list>
+
+  <div class="container text-center mt-3">
+    <button mat-raised-button color="accent">Add New Category</button>
+  </div>
+</mat-card>

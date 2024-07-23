@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { QuizService } from '../../../services/quiz.service';
-import { error } from 'console';
+import { RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-view-quizzez',
@@ -16,12 +16,38 @@ import Swal from 'sweetalert2';
     MatIconModule,
     CommonModule,
     MatButtonModule,
+    RouterModule,
   ],
   templateUrl: './view-quizzez.component.html',
   styleUrl: './view-quizzez.component.css',
 })
 export class ViewQuizzezComponent implements OnInit {
-  quizzes = [];
+  quizzes = [
+    {
+      qId: 23,
+      title: 'Basic Java Quiz',
+      description:
+        'Java is a programming language that is class-based and object-oriented. ',
+      maxMarks: '50',
+      numberOfQuestions: '20',
+      active: '',
+      category: {
+        title: 'Programming',
+      },
+    },
+    {
+      qId: 23,
+      title: 'Basic Java Quiz',
+      description:
+        'Java is a programming language that is class-based and object-oriented. ',
+      maxMarks: '50',
+      numberOfQuestions: '20',
+      active: '',
+      category: {
+        title: 'Programming',
+      },
+    },
+  ];
   constructor(private _quiz: QuizService) {}
   ngOnInit(): void {
     this._quiz.quizzes().subscribe(

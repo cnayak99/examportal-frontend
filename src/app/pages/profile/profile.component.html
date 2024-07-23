@@ -9,30 +9,30 @@
           alt="profile-image"
           class="profile-image"
         />
-        <h1 class="mt-20">{{ user?.firstName }} {{ user?.lastName }}</h1>
+        <h1 class="mt-20">{{ user.firstName }} {{ user.lastName }}</h1>
       </div>
       <div class="row">
         <div class="col-md-10 offset-md-1">
           <table class="table text-center">
             <tr>
               <td>Username</td>
-              <td>{{ user?.username }}</td>
+              <td>{{ user.username }}</td>
             </tr>
             <tr>
               <td>Userid</td>
-              <td>{{ user?.id }}</td>
+              <td>{{ user.id }}</td>
             </tr>
             <tr>
               <td>Phone</td>
-              <td>{{ user?.phone }}</td>
+              <td>{{ user.phone }}</td>
             </tr>
             <tr>
               <td>Role</td>
-              <td>{{ user?.authorities?.[0]?.authority }}</td>
+              <td>{{ user.authorities[0].authority }}</td>
             </tr>
             <tr>
               <td>Status</td>
-              <td>{{ user?.enabled ? "Active" : "Not Active" }}</td>
+              <td>{{ user.enabled ? "Active" : "Not Active" }}</td>
             </tr>
           </table>
         </div>

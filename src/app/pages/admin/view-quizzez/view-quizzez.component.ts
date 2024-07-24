@@ -29,7 +29,7 @@ export class ViewQuizzezComponent implements OnInit {
       description:
         'Java is a programming language that is class-based and object-oriented. ',
       maxMarks: '50',
-      numberOfQuestions: '20',
+      numberOfQuestion: '20',
       active: '',
       category: {
         title: 'Programming',
@@ -41,7 +41,7 @@ export class ViewQuizzezComponent implements OnInit {
       description:
         'Java is a programming language that is class-based and object-oriented. ',
       maxMarks: '50',
-      numberOfQuestions: '20',
+      numberOfQuestion: '20',
       active: '',
       category: {
         title: 'Programming',
@@ -53,7 +53,7 @@ export class ViewQuizzezComponent implements OnInit {
     this._quiz.quizzes().subscribe(
       (data: any) => {
         this.quizzes = data;
-        console.log(this.quizzes);
+        console.log('show quiz data is: ' + data.numberOfQuestions);
       },
       (error) => {
         console.log(error);

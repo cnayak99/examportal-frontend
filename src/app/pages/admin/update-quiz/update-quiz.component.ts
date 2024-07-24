@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,7 +17,7 @@ import { CategoryService } from '../../../services/category.service';
 import { QuizService } from '../../../services/quiz.service';
 
 @Component({
-  selector: 'app-add-quiz',
+  selector: 'app-update-quiz',
   standalone: true,
   imports: [
     MatCardModule,
@@ -31,71 +32,54 @@ import { QuizService } from '../../../services/quiz.service';
     MatSelectModule,
     FormsModule,
   ],
-  templateUrl: './add-quiz.component.html',
-  styleUrls: ['./add-quiz.component.css'],
+  templateUrl: './update-quiz.component.html',
+  styleUrl: './update-quiz.component.css',
 })
-export class AddQuizComponent implements OnInit {
+export class UpdateQuizComponent implements OnInit {
   constructor(
+    private _route: ActivatedRoute,
+    private _quiz: QuizService,
     private _cat: CategoryService,
-    private _snack: MatSnackBar,
-    private _quiz: QuizService
+    private _router: Router
   ) {}
-
-  categories = [
-    {
-      cid: 23,
-      title: 'Programming',
-    },
-  ];
-
-  quizData = {
-    title: '',
-    description: '',
-    maxMarks: '',
-    numberOfQuestion: '',
-    active: true,
-    category: {
-      cid: '',
-    },
-  };
-
+  qId = 0;
+  quiz: any;
+  categories: any;
   ngOnInit(): void {
+    this.qId = this._route.snapshot.params['qId'];
+
+    this._quiz.getQuiz(this.qId).subscribe(
+      (data: any) => {
+        this.quiz = data;
+        console.log(this.quiz);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
     this._cat.categories().subscribe(
       (data: any) => {
         this.categories = data;
-        console.log(this.categories);
+        console.log(data);
       },
-      (error: any) => {
-        console.log(error);
-        Swal.fire('Error!!', 'Error in loading data from server', 'error');
+      (error) => {
+        alert('Error in loading categories');
       }
     );
   }
 
-  addQuiz() {
-    if (this.quizData.title.trim() == '' || this.quizData.title == null) {
-      this._snack.open('Title Required!', '', {
-        duration: 3000,
-      });
-      return;
-    }
+  //update form submit
 
-    this._quiz.addQuiz(this.quizData).subscribe(
-      (data: any) => {
-        Swal.fire('Success', 'quiz is added', 'success');
-        this.quizData = {
-          title: '',
-          description: '',
-          maxMarks: '',
-          numberOfQuestion: '',
-          active: true,
-          category: {
-            cid: '',
-          },
-        };
+  public updateData() {
+    this._quiz.updateQuiz(this.quiz).subscribe(
+      (data) => {
+        Swal.fire('Success !', 'quiz updated', 'success').then((e) => {
+          this._router.navigate(['/admin/quizzes']);
+        });
       },
-      (error: any) => {
-        Swal.fire('Error!', 'Error while adding quiz', 'error');
+      (error) => {
+        Swal.fire('Error', 'error in updating quiz', 'error');
         console.log(error);
       }
     );

@@ -50,7 +50,6 @@ export class LoginService {
   public getToken(): string | null {
     if (this.isBrowser()) {
       const token = localStorage.getItem('token');
-      console.log('Retrieved token:', token);
       return token;
     }
     return null;

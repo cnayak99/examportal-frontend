@@ -10,8 +10,7 @@ import { RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
-import { QuizService } from '../../../services/quiz.service';
+import { FormsModule } from '@angular/forms';
 import { QuestionService } from '../../../services/question.service';
 
 @Component({
@@ -30,7 +29,7 @@ import { QuestionService } from '../../../services/question.service';
     FormsModule,
   ],
   templateUrl: './add-question.component.html',
-  styleUrl: './add-question.component.css',
+  styleUrls: ['./add-question.component.css'], // Corrected this line
 })
 export class AddQuestionComponent implements OnInit {
   qId: any;
@@ -46,28 +45,31 @@ export class AddQuestionComponent implements OnInit {
     option4: '',
     answer: '',
   };
+
   constructor(
     private _route: ActivatedRoute,
     private _question: QuestionService
   ) {}
+
   ngOnInit(): void {
     this.qId = this._route.snapshot.params['qId'];
     this.qTitle = this._route.snapshot.params['qTitle'];
-    console.log(this.qId);
+    console.log(this.qId, this.qTitle);
     this.question.quiz['qId'] = this.qId;
   }
 
   formSubmit() {
-    if (this.question.content.trim() == '' || this.question.content == null) {
-      return;
-    }
-    if (this.question.option1.trim() == '' || this.question.option1 == null) {
-      return;
-    }
-    if (this.question.option2.trim() == '' || this.question.option2 == null) {
+    if (
+      this.question.content.trim() == '' ||
+      this.question.option1.trim() == '' ||
+      this.question.option2.trim() == '' ||
+      this.question.answer.trim() == ''
+    ) {
+      Swal.fire('Error', 'Please fill all required fields', 'error');
       return;
     }
 
+    console.log('Submitting form with data:', this.question);
     this._question.addQuestion(this.question).subscribe(
       (data: any) => {
         Swal.fire('Success', 'Question Added', 'success');

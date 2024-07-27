@@ -4,14 +4,14 @@
 
     <mat-card>
       <mat-card-header>
-        <mat-card-subtitle>
-          Enter the detail of the new question
-        </mat-card-subtitle>
+        <mat-card-subtitle
+          >Enter the detail of the new question</mat-card-subtitle
+        >
       </mat-card-header>
       <mat-card-content>
-        <form action="" (submit)="formSubmit()">
+        <form (submit)="formSubmit()">
           <mat-form-field class="w-100">
-            <mat-label>Writer question content</mat-label>
+            <mat-label>Write question content</mat-label>
             <textarea
               required
               [(ngModel)]="question.content"
@@ -38,7 +38,7 @@
               <mat-form-field class="w-100">
                 <mat-label>Enter Option 2</mat-label>
                 <input
-                  required=""
+                  required
                   [(ngModel)]="question.option2"
                   name="option2"
                   type="text"
@@ -78,21 +78,19 @@
               <mat-option *ngIf="question.option1" [value]="question.option1">{{
                 question.option1
               }}</mat-option>
-              <mat-option [value]="question.option2" *ngIf="question.option2">{{
+              <mat-option *ngIf="question.option2" [value]="question.option2">{{
                 question.option2
               }}</mat-option>
-              <mat-option [value]="question.option3" *ngIf="question.option3">{{
+              <mat-option *ngIf="question.option3" [value]="question.option3">{{
                 question.option3
               }}</mat-option>
-              <mat-option [value]="question.option4" *ngIf="question.option4">
-                {{ question.option4 }}</mat-option
-              >
+              <mat-option *ngIf="question.option4" [value]="question.option4">{{
+                question.option4
+              }}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="container text-center">
-            <button mat-raised-button color="accent" class="" type="submit">
-              Add
-            </button>
+            <button mat-raised-button color="accent" type="submit">Add</button>
           </div>
         </form>
       </mat-card-content>

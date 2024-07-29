@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <mat-card class="mt-3">
+      <mat-card-header>
+        <mat-card-title>
+          Read the instructions of this quiz carefully.
+        </mat-card-title>
+        <mat-card-subtitle>One step more to go</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <h1>{{ quiz.title }}</h1>
+        <p>{{ quiz.description }}</p>
+
+        <mat-divider></mat-divider>
+        <br />
+        <h1>Important Instructions</h1>
+        <ul>
+          <li>This quiz is only for practice purpose.</li>
+          <li>
+            You have to submit quiz within
+            <b>{{ quiz.numberOfQuestion * 2 }} Minutes</b>
+          </li>
+          <li>You can attempt the quiz any number of time.</li>
+          <li>
+            There are <b>{{ quiz.numberOfQuestion }} questions</b> quiz.
+          </li>
+          <li>
+            Each questions carries
+            <b> {{ quiz.maxMarks / quiz.numberOfQuestion }} marks</b>. No
+            negative markings.
+          </li>
+          <li>All questions are of MCQ Type</li>
+        </ul>
+        <mat-divider></mat-divider>
+        <br />
+        <h1>Attempting Quiz</h1>
+        <ul>
+          <li>Click <b>Start Quiz </b> button to start the quiz</li>
+          <li>
+            The time will start the moment you click the Start Test button.
+          </li>
+          <li>
+            You cannot resume this quiz, if interrupted due to any reason.
+          </li>
+          <li>Scroll down to move to the next question.</li>
+          <li>Click on Submit Test button on completion of the quiz</li>
+          <li>
+            Report of the test is automatically generated in the form of PDF
+            copy
+          </li>
+        </ul>
+      </mat-card-content>
+      <mat-card-actions style="justify-content: center">
+        <button class="mt-5" mat-raised-button color="primary">
+          Start Quiz
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

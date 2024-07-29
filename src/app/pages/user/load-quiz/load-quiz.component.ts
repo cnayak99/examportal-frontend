@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { error } from 'console';
 import { MatCardModule } from '@angular/material/card';
 import { MatCardActions } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
@@ -13,7 +12,13 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-load-quiz',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatCardActions, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatCardActions,
+    MatButtonModule,
+    RouterModule,
+  ],
   templateUrl: './load-quiz.component.html',
   styleUrl: './load-quiz.component.css',
 })

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../../services/quiz.service';
-import { error } from 'console';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatCardActions } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
@@ -19,6 +18,7 @@ import Swal from 'sweetalert2';
     MatListModule,
     MatButtonModule,
     RouterModule,
+    CommonModule,
   ],
   templateUrl: './instructions.component.html',
   styleUrl: './instructions.component.css',
@@ -26,7 +26,11 @@ import Swal from 'sweetalert2';
 export class InstructionsComponent implements OnInit {
   qId: any;
   quiz: any;
-  constructor(private _route: ActivatedRoute, private _quiz: QuizService) {}
+  constructor(
+    private _route: ActivatedRoute,
+    private _quiz: QuizService,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {
     this.qId = this._route.snapshot.params['qId'];
@@ -41,5 +45,20 @@ export class InstructionsComponent implements OnInit {
         alert('Error in loading quiz data');
       }
     );
+  }
+
+  startQuiz() {
+    Swal.fire({
+      title: 'Do you want to start the quiz',
+      showCancelButton: true,
+      confirmButtonText: 'Start',
+      icon: 'info',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._router.navigate(['/start/' + this.qId]);
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
+      }
+    });
   }
 }
